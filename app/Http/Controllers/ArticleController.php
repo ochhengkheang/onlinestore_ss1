@@ -56,11 +56,30 @@ class ArticleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-       Article::find($id)->update([
-            'title'=>$request->input('title'),
-            'description'=>$request->input('description'),
-            'publish'=>$request->input('publish')
-       ]);
+        if($request -> input('publish') == null)
+            $publish = 0;
+        else
+            $publish = $request -> input('publish');
+
+        //method 1
+        //     Article::find($id)->update([
+        //         'title'=>$request->input('title'),
+        //         'description'=>$request->input('description'),
+        //         'publish'=> $publish
+        // ]);
+
+        // method 2
+        // $article = Article::find($id);
+        // $article -> title = $request -> input('title');
+        // $article -> description = $request -> input('description');
+        // $article -> publish = $publish;
+        // $article -> save();
+
+        // method 3
+        $data = $request -> all();
+        $data['publish'] = $publish;
+        Article::find($id) -> update($data);
+
        return redirect('/admin/articles');
     }
     /**

@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('product', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->proudct_name();
         });
     }
 
