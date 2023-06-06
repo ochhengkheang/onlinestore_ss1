@@ -11,7 +11,6 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
         return view('admin.categories.index');
     }
 
@@ -20,7 +19,6 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
         return view('admin.categories.create');
     }
 
@@ -29,8 +27,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        return 'Add Successfully';
+
     }
 
     /**
@@ -38,7 +35,6 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
-        //
         return view("admin.categories.show");
     }
 
@@ -47,8 +43,8 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
-        return view('admin.categories.edit');
+       
+        return view("admin.categories.edit");
     }
 
     /**
@@ -57,7 +53,6 @@ class CategoryController extends Controller
     public function update(Request $request, string $id)
     {
         //
-         return "The Update Method has been called";
     }
 
     /**
@@ -65,7 +60,6 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
-        return "Delete Successfully";
+        return "The Destroy Method has been called";
     }
 }

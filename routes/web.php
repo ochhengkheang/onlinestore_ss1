@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,4 +32,6 @@ Route::get('/admin/users', function () {
 
 Route::resource("/admin/articles", ArticleController::class);
 
+Route::resource("/admin/categories", CategoryController::class);
 
+Route::post('/admin/articles/deleteAll', [ArticleController::class, 'deleteAll']);

@@ -12,8 +12,8 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::all();
-        return view('admin.articles.index', compact('articles'));
+        $articles = Article::where('trash','=',0)->orderbyDesc('id')->get();
+        return view('admin.articles.index',compact('articles'));
     }
 
     /**
@@ -29,17 +29,30 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        Article::create($request->all());
-        return redirect()->back()->with('successullyMessage',
-            'The article has been inserted successully!!!');
-    }
+        // Form Validation
+        $request->validate([
+            'title'=>'required|min:5|max:60000',
+            'description'=>'required|min:5|max:60000',
+            'email'=>'required|email|regex:/.+@.+\..+/iu',
+            'url'=>'required|url',
+        ],[
+            'title.required'=>'you have to provide title!!!',
+            'title.min'=>'you have to provide the at least 5 char!!!',
+            'email.regex'=>'the email doesnt matchthe format. ex. namedomain.extension',
+        ]);
 
+        Article::create($request-> all());
+        return redirect()->back()->with('SuccessfullMessage',
+        'This articles has been inntered successful');
+    }
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        return view("admin.articles.show");
+        $article = Article::find($id);
+        return view("admin.articles.show",['article'=>$article]);
+
     }
 
     /**
@@ -47,8 +60,8 @@ class ArticleController extends Controller
      */
     public function edit(string $id)
     {
-        $article = Article::find($id);
-        return view("admin.articles.edit", compact('article'));
+        $article = Article :: find($id);
+        return view("admin.articles.edit",compact('article'));
     }
 
     /**
@@ -56,37 +69,45 @@ class ArticleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        if($request -> input('publish') == null)
+        if($request->input('publish') == null){
             $publish = 0;
-        else
-            $publish = $request -> input('publish');
+        }
+        else{
+            $publish = $request-> input('publish');
 
-        //method 1
-        //     Article::find($id)->update([
-        //         'title'=>$request->input('title'),
-        //         'description'=>$request->input('description'),
-        //         'publish'=> $publish
-        // ]);
-
-        // method 2
+        }
+        Article::find($id)->update([
+            'title'=>$request->input('title'),
+            'description'=>$request ->input('description'),
+            //'publish'=>$request ->input('publish')
+            'publish'=>$publish
+        ]);
         // $article = Article::find($id);
-        // $article -> title = $request -> input('title');
-        // $article -> description = $request -> input('description');
-        // $article -> publish = $publish;
-        // $article -> save();
-
-        // method 3
-        $data = $request -> all();
+        // $article->title = $request->input('title');
+        // $article->description = $request->input('description');
+        // $article->publish = $publish;
+        // $article->save();
+        $data = $request->all();
         $data['publish'] = $publish;
-        Article::find($id) -> update($data);
-
-       return redirect('/admin/articles');
+        Article::find($id)-> update ($data);
+        return redirect('/admin/articles');
     }
+
+
+
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        return "The Destroy Method has been called";
+        Article::find($id)->update(['trash'=>1]);
+        return redirect('/admin/articles') ->with('delSuccess',
+        'This article has been delete successful.');
+
+    }
+
+    public function deleteAll(Request $request){
+        $ids = $request -> input('chkIds');
+
     }
 }

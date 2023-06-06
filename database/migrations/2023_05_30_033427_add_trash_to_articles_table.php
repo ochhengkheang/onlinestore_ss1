@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('articles', function (Blueprint $table) {
-            $table->id();
-            $table->string('title', 60);
-            $table->text('description');
-            $table->tinyInteger('publish')-> default(0);
-            $table->timestamps();
+        Schema::table('articles', function (Blueprint $table) {
+            //
+            $table->tinyInteger('trash')->default(0)->after('publish');
         });
     }
 
@@ -25,6 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('articles');
+        Schema::table('articles', function (Blueprint $table) {
+            //
+
+        });
     }
 };

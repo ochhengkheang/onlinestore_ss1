@@ -18,12 +18,38 @@
         @if (session('successullyMessage'))
             <br><h2>{{ session('successullyMessage') }}</h2><br><br>
         @endif
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                <h4 style="color: red;">{{ $error }}</h4>
+            @endforeach
+        @endif
             <label for="title">Title: </label><br>
-            <input type="text" name="title" id="title"> <br><br>
-
+            <input type="text" value="{{ old('title') }}" name="title" id="title"> <br>
+            @error('title')
+                {{ $message }}
+            @enderror
+            <br><br>
             <label for="description">Description: </label><br>
             <textarea name="description" id="description"
-                cols="43" rows="8"></textarea> <br><br>
+                cols="43" rows="8">{{ old('description') }}</textarea> <br>
+            @error('title')
+                {{ $message }}
+            @enderror
+            <br><br>
+
+            <label for="email">Email: </label><br>
+            <input type="text" value="{{ old('email') }}" name="email" id="email"> <br>
+            @error('email')
+                {{ $message }}
+            @enderror
+            <br><br>
+
+            <label for="url">URL: </label><br>
+            <input type="text" value="{{ old('url') }}" name="url" id="url"> <br>
+            @error('url')
+                {{ $message }}
+            @enderror
+            <br><br>
 
             <label for="publish">Publish</label>
             <input type="checkbox" name="publish" id="publish" value="1" checked>
