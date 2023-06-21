@@ -29,6 +29,14 @@
                 {{ $message }}
             @enderror
             <br><br>
+
+            <label for="newsId">News Id: </label><br>
+            <input type="text" value="{{ old('newsId') }}" name="newsId" id="newsId"> <br>
+            @error('newsId')
+                {{ $message }}
+            @enderror
+            <br><br>
+
             <label for="description">Description: </label><br>
             <textarea name="description" id="description"
                 cols="43" rows="8">{{ old('description') }}</textarea> <br>

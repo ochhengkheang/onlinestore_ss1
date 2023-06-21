@@ -47,12 +47,6 @@
         }
         #toolbar ul{ display: flex; }
         #toolbar ul li{ list-style-type: none; margin-right: 20px; }
-        #toolbar ul li a{
-            text-decoration: none; background: brown; color: white;
-            padding: 8px 18px; border: 1px solid white;
-        }
-        #toolbar ul li a:hover{ color: yellow; background: black; }
-
         #toolbar ul li a, #right form input[type=submit],
         #right form input[type=button]{
             text-decoration: none; background: brown; color: white;
@@ -63,11 +57,11 @@
             font: bold 16px sans-serif; color: #373737;
         }
         #right form input[type=text]{
-            padding: 8px; color: #373737; font: 16px sans-serif; width: 350px; width: 100%;
+            padding: 8px; color: #373737; font: 16px sans-serif; width: 100%;
         }
-        #right form textarea{ padding: 10px; width: 100%;}
+        #right form textarea{ padding: 10px; width: 100%; }
         #right form input[type=checkbox]{
-            width: 20px; height: 20px;
+           width: 20px; height: 20px;
         }
 
     </style>
